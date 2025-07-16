@@ -1,0 +1,119 @@
+accum_grad: 1
+cmvn: global_cmvn
+cmvn_conf:
+  cmvn_file: exp/wenet_xhs_ori/global_cmvn
+  is_json_cmvn: true
+ctc_conf:
+  ctc_blank_id: 0
+dataset: asr
+dataset_conf:
+  batch_conf:
+    batch_type: dynamic
+    max_frames_in_batch: 12000
+  fbank_conf:
+    dither: 0.1
+    frame_length: 25
+    frame_shift: 10
+    num_mel_bins: 80
+  filter_conf:
+    max_length: 4096
+    min_length: 0
+    token_max_length: 128
+    token_min_length: 1
+  resample_conf:
+    resample_rate: 16000
+  shuffle: true
+  shuffle_conf:
+    shuffle_size: 1500
+  sort: true
+  sort_conf:
+    sort_size: 500
+  spec_aug: true
+  spec_aug_conf:
+    max_f: 10
+    max_t: 50
+    num_f_mask: 2
+    num_t_mask: 2
+  spec_sub: true
+  spec_sub_conf:
+    max_t: 30
+    num_t_sub: 3
+  spec_trim: false
+  speed_perturb: false
+decoder: transformer
+decoder_conf:
+  activation_type: gelu
+  attention_heads: 20
+  dropout_rate: 0.1
+  gradient_checkpointing: true
+  key_bias: false
+  linear_units: 5120
+  normalize_before: true
+  num_blocks: 16
+  positional_dropout_rate: 0.1
+  self_attention_dropout_rate: 0.0
+  src_attention: true
+  src_attention_dropout_rate: 0.0
+  src_key_bias: false
+  tie_word_embedding: true
+  use_output_layer: true
+dtype: fp32
+encoder: firered_conformer
+encoder_conf:
+  activation_type: swish
+  attention_dropout_rate: 0.0
+  attention_heads: 20
+  cnn_module_kernel: 33
+  cnn_module_norm: layer_norm
+  conv_bias: false
+  conv_inner_factor: 4
+  dropout_rate: 0.1
+  final_norm: false
+  gradient_checkpointing: true
+  input_layer: firered_conv2d4
+  key_bias: false
+  linear_units: 5120
+  normalize_before: true
+  num_blocks: 16
+  output_size: 1280
+  pos_enc_layer_type: rel_pos_firered
+  positional_dropout_rate: 0.1
+  query_bias: false
+  selfattention_layer_type: firered_rel_selfattn
+  static_chunk_size: -1
+  use_dynamic_chunk: false
+  use_dynamic_left_chunk: false
+  value_bias: false
+grad_clip: 1
+init_infos: {}
+input_dim: 80
+log_interval: 100
+max_epoch: 100
+model: firered
+model_conf:
+  ctc_weight: 0
+  length_normalized_loss: false
+  lsm_weight: 0.1
+model_dir: exp/xhs_train_v1
+optim: adam
+optim_conf:
+  lr: 0.0005
+output_dim: 7832
+save_states: model_only
+save_time: 15/07/2025 21:32:33
+scheduler: warmuplr
+scheduler_conf:
+  warmup_steps: 12000
+tag: init
+tokenizer: bpe
+tokenizer_conf:
+  bpe_path: exp/wenet_xhs_ori/train_bpe1000.model
+  non_lang_syms_path: null
+  special_tokens:
+    eos: 4
+    sos: 3
+  split_with_space: true
+  symbol_table_path: exp/wenet_xhs_ori/units.txt
+train_engine: torch_ddp
+use_amp: false
+vocab_size: 7832
