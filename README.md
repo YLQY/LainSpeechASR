@@ -1,0 +1,2 @@
+# LainSpeechASR
+基于wenet语音识别框架微调FireRedASR-AED与LLM模型
